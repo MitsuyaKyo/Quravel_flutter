@@ -164,7 +164,7 @@ class _PostScreenState extends State<PostScreen> {
                 ),
                 Text('${post.body}'),
                 post.image != null ?
-                Image.network('http://192.168.100.102:8000/storage/posts/1656941235.png'): SizedBox(height: post.image != null ? 0 : 40,),
+                Image.network('${post.image}'): SizedBox(height: post.image != null ? 0 : 40,),
                 // Container(
                 //   width: MediaQuery.of(context).size.width,
                 //   height: 180,
