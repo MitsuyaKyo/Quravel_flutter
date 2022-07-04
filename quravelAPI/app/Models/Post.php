@@ -13,6 +13,7 @@ class Post extends Model
     use HasFactory;
 
     protected $fillable = [
+        'title',
         'body',
         'user_id',
         'image'
@@ -32,5 +33,5 @@ class Post extends Model
     {
         return $this->hasMany(Like::class);
     }
-    
+
 }

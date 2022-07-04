@@ -34,18 +34,18 @@ class PostController extends Controller
     {
         //validate fields
         $attrs = $request->validate([
-            'body' => 'required|string'
+            'body' => 'required|string',
+            'title' => 'required|string'
         ]);
 
         $image = $this->saveImage($request->image, 'posts');
 
         $post = Post::create([
+            'title' => $attrs['title'],
             'body' => $attrs['body'],
             'user_id' => auth()->user()->id,
             'image' => $image
         ]);
-
-        // for now skip for post image
 
         return response([
             'message' => 'Post created.',
@@ -74,10 +74,12 @@ class PostController extends Controller
 
         //validate fields
         $attrs = $request->validate([
+            'title' => 'required|string',
             'body' => 'required|string'
         ]);
 
         $post->update([
+            'title' => $attrs['title'],
             'body' =>  $attrs['body']
         ]);
 

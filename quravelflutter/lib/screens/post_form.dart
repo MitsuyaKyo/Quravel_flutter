@@ -26,6 +26,7 @@ class PostForm extends StatefulWidget {
 class _PostFormState extends State<PostForm> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _txtControllerBody = TextEditingController();
+  final TextEditingController _txtControllerTitle = TextEditingController();
   bool _loading = false;
    File? _imageFile;
   final _picker = ImagePicker();
@@ -35,13 +36,14 @@ class _PostFormState extends State<PostForm> {
     if (pickedFile != null){
       setState(() {
         _imageFile = File(pickedFile.path);
+
       });
     }
   }
 
   void _createPost() async {
     String? image = _imageFile ==  null ? null : getStringImage(_imageFile);
-    ApiResponse response = await createPost(_txtControllerBody.text, image);
+    ApiResponse response = await createPost(_txtControllerTitle.text,_txtControllerBody.text, image);
 
     if(response.error ==  null) {
       Navigator.of(context).pop();
@@ -63,7 +65,7 @@ class _PostFormState extends State<PostForm> {
 
  // edit post
   void _editPost(int postId) async {
-    ApiResponse response = await editPost(postId, _txtControllerBody.text);
+    ApiResponse response = await editPost(postId, _txtControllerTitle.text, _txtControllerBody.text);
     if (response.error == null) {
       Navigator.of(context).pop();
     }
@@ -119,18 +121,29 @@ class _PostFormState extends State<PostForm> {
           ),
           Form(
             key: _formKey,
-            child: Padding(
-              padding: EdgeInsets.all(8),
-              child: TextFormField(
-                controller: _txtControllerBody,
-                keyboardType: TextInputType.multiline,
-                maxLines: 9,
-                validator: (val) => val!.isEmpty ? 'Post body is required' : null,
-                decoration: InputDecoration(
-                  hintText: "Post body...",
-                  border: OutlineInputBorder(borderSide: BorderSide(width: 1, color: Colors.black38))
-                ),
-              ),
+            child: Column(  
+              children: [
+                  TextFormField(
+                    controller: _txtControllerTitle,
+                    keyboardType: TextInputType.multiline,
+                    maxLines: 2,
+                    validator: (val) => val!.isEmpty ? 'Post Title is required' : null,
+                    decoration: InputDecoration(
+                      hintText: "Post title...",
+                      border: OutlineInputBorder(borderSide: BorderSide(width: 1, color: Colors.black38))
+                    ),
+                  ),
+                  TextFormField(
+                    controller: _txtControllerBody,
+                    keyboardType: TextInputType.multiline,
+                    maxLines: 9,
+                    validator: (val) => val!.isEmpty ? 'Post body is required' : null,
+                    decoration: InputDecoration(
+                      hintText: "Post body...",
+                      border: OutlineInputBorder(borderSide: BorderSide(width: 1, color: Colors.black38))
+                    ),
+                  ),
+              ],
             ),
           ),
           Padding(

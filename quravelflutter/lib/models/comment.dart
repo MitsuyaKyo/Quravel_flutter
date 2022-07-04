@@ -19,7 +19,6 @@ class Comment {
       user: User(
         id: json['user']['id'],
         name: json['user']['name'],
-        image: json['user']['image']
       )
     );
   }

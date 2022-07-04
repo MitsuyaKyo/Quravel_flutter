@@ -113,12 +113,7 @@ class _PostScreenState extends State<PostScreen> {
                           Container(
                             width: 38,
                             height: 38,
-                            decoration: BoxDecoration(
-                              image: post.user!.image != null ?
-                                DecorationImage(image: NetworkImage('${post.user!.image}')) : null,
-                              borderRadius: BorderRadius.circular(25),
-                              color: Colors.amber
-                            ),
+                            child: Icon(Icons.account_circle, color: Colors.blue,)
                           ),
                           SizedBox(width: 10,),
                           Text(
@@ -161,19 +156,26 @@ class _PostScreenState extends State<PostScreen> {
                   ],
                 ),
                 SizedBox(height: 12,),
+                Text(
+                  '${post.title}',
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold),
+                ),
                 Text('${post.body}'),
                 post.image != null ?
-                Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: 180,
-                  margin: EdgeInsets.only(top: 5),
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: NetworkImage('https://picsum.photos/id/1074/400/400'),
-                      fit: BoxFit.cover
-                    )
-                  ),
-                ) : SizedBox(height: post.image != null ? 0 : 10,),
+                Image.network('http://192.168.100.102:8000/storage/posts/1656941235.png'): SizedBox(height: post.image != null ? 0 : 40,),
+                // Container(
+                //   width: MediaQuery.of(context).size.width,
+                //   height: 180,
+                //   margin: EdgeInsets.only(top: 5),
+                //   decoration: BoxDecoration(
+                //     image: DecorationImage(
+                //       image: Image.network('${post.image}'),//'''https://picsum.photos/id/1074/400/400'
+                //       fit: BoxFit.cover
+                //     )
+                //   ),
+                // ) : SizedBox(height: post.image != null ? 0 : 40,),
                 Row(
                   children: [
                     kLikeAndComment(

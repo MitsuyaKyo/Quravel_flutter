@@ -154,14 +154,7 @@ void _editComment() async {
                                 Container(
                                   width: 30,
                                   height: 30,
-                                  decoration: BoxDecoration(
-                                    image: comment.user!.image != null ? DecorationImage(
-                                      image: NetworkImage('${comment.user!.image}'),
-                                      fit: BoxFit.cover
-                                    ) : null,
-                                    borderRadius: BorderRadius.circular(15),
-                                    color: Colors.blueGrey
-                                  ),
+                                  child: Icon(Icons.account_circle_rounded, color: Colors.black,)
                                 ),
                                 SizedBox(width: 10,),
                                 Text(

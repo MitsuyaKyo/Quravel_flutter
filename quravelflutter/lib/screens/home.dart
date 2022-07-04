@@ -34,7 +34,7 @@ class _HomeState extends State<Home> {
       floatingActionButton: FloatingActionButton(
         onPressed: (){
            Navigator.of(context).push(MaterialPageRoute(builder: (context)=>PostForm(
-             title: 'You Can Ask and Share Experiences',
+             title: 'Ask and Share Experiences',
            )));
         },
         child: Icon(Icons.add),
