@@ -70,47 +70,6 @@ class _CommentScreenState extends State<CommentScreen> {
     }
   }
 
-  // edit comment
-void _editComment() async {
-    ApiResponse response = await editComment(_editCommentId, _txtCommentController.text);
-
-    if(response.error == null) {
-      _editCommentId = 0;
-      _txtCommentController.clear();
-      _getComments();
-    }
-    else if(response.error == unauthorized){
-      logout().then((value) => {
-        Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context)=>Login()), (route) => false)
-      });
-    } 
-    else {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text('${response.error}')
-      ));
-    }
-  }
-
-
-  // Delete comment
-  void _deleteComment(int commentId) async {
-    ApiResponse response = await deleteComment(commentId);
-
-    if(response.error == null){
-      _getComments();
-    }
-    else if(response.error == unauthorized){
-      logout().then((value) => {
-        Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context)=>Login()), (route) => false)
-      });
-    } 
-    else {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text('${response.error}')
-      ));
-    }
-  }
-
   @override
   void initState() {
     _getComments();
@@ -122,6 +81,7 @@ void _editComment() async {
     return Scaffold(
       appBar: AppBar(
         title: Text('Comments'),
+      backgroundColor: Colors.green,
       ),
       body: _loading ? Center(child: CircularProgressIndicator(),) :
       Column(
@@ -154,7 +114,7 @@ void _editComment() async {
                                 Container(
                                   width: 30,
                                   height: 30,
-                                  child: Icon(Icons.account_circle_rounded, color: Colors.black,)
+                                  child: Icon(Icons.account_circle_rounded, color: Colors.green,)
                                 ),
                                 SizedBox(width: 10,),
                                 Text(
@@ -166,34 +126,6 @@ void _editComment() async {
                                 )
                               ],
                             ),
-                            comment.user!.id == userId ?
-                             PopupMenuButton(
-                              child: Padding(
-                                padding: EdgeInsets.only(right:10),
-                                child: Icon(Icons.more_vert, color: Colors.black,)
-                              ),
-                              itemBuilder: (context) => [
-                                PopupMenuItem(
-                                  child: Text('Edit'),
-                                  value: 'edit'
-                                ),
-                                PopupMenuItem(
-                                  child: Text('Delete'),
-                                  value: 'delete'
-                                )
-                              ],
-                              onSelected: (val){
-                                if(val == 'edit'){
-                                  setState(() {
-                                    _editCommentId = comment.id ?? 0;
-                                    _txtCommentController.text = comment.comment ?? '';
-                                  });
-                                  
-                                } else {
-                                  _deleteComment(comment.id ?? 0);
-                                }
-                              },
-                            ) : SizedBox()
                           ],
                         ), SizedBox(height: 10,),
                         Text('${comment.comment}')
@@ -228,11 +160,7 @@ void _editComment() async {
                     setState(() {
                       _loading = true;
                     });
-                  if (_editCommentId > 0){
-                    _editComment();
-                  } else {
-                    _createComment();
-                  }
+                    _createComment();          
                   }
                 },
               )

@@ -44,45 +44,50 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Login'),
-        centerTitle: true,
-      ),
-      body: Form(
-        key: formkey,
-        child: ListView(
-          padding: EdgeInsets.all(32),
-          children: [
-            TextFormField(
-              keyboardType: TextInputType.emailAddress,
-              controller: txtEmail,
-              validator: (val) => val!.isEmpty ? 'Invalid email address' : null,
-              decoration: kInputDecoration('Email')
-            ),
-            SizedBox(height: 10,),
-            TextFormField(
-              controller: txtPassword,
-              obscureText: true,
-              validator: (val) => val!.length < 6 ? 'Required at least 6 chars' : null,
-              decoration: kInputDecoration('Password')
-            ),
-            SizedBox(height: 10,),
-            loading? Center(child: CircularProgressIndicator(),)
-            :
-            kTextButton('Login', () {
-              if (formkey.currentState!.validate()){
-                  setState(() {
-                    loading = true;
-                    _loginUser();
-                  });
-                }
-            }),
-            SizedBox(height: 10,),
-            kLoginRegisterHint('Dont have an acount? ', 'Register', (){
-              Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context)=>Register()), (route) => false);
-            })
-          ],
+    return Container(
+      decoration: const BoxDecoration(image: DecorationImage(image: AssetImage('assets/login_register.png'), fit: BoxFit.cover)),
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        appBar: AppBar(
+          title: Text('Login'),
+          centerTitle: true,
+          backgroundColor: Colors. green
+        ),
+        body: Form(
+          key: formkey,
+          child: ListView(
+            padding: EdgeInsets.all(32),
+            children: [
+              TextFormField(
+                keyboardType: TextInputType.emailAddress,
+                controller: txtEmail,
+                validator: (val) => val!.isEmpty ? 'Invalid email address' : null,
+                decoration: kInputDecoration('Email')
+              ),
+              SizedBox(height: 10,),
+              TextFormField(
+                controller: txtPassword,
+                obscureText: true,
+                validator: (val) => val!.length < 6 ? 'Required at least 6 chars' : null,
+                decoration: kInputDecoration('Password')
+              ),
+              SizedBox(height: 10,),
+              loading? Center(child: CircularProgressIndicator(),)
+              :
+              kTextButton('Login', () {
+                if (formkey.currentState!.validate()){
+                    setState(() {
+                      loading = true;
+                      _loginUser();
+                    });
+                  }
+              }),
+              SizedBox(height: 10,),
+              kLoginRegisterHint('Dont have an acount? ', 'Register', (){
+                Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context)=>Register()), (route) => false);
+              })
+            ],
+          ),
         ),
       ),
     );

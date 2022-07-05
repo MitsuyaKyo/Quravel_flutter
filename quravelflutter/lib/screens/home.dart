@@ -1,8 +1,8 @@
 import 'package:quravelflutter/screens/post_screen.dart';
+import 'package:quravelflutter/screens/search.dart';
 import 'package:quravelflutter/screens/tourist_attraction.dart';
 import 'package:quravelflutter/services/user_service.dart';
 import 'package:flutter/material.dart';
-
 import 'login.dart';
 import 'post_form.dart';
 
@@ -18,8 +18,11 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Quravel'),
+        title: Text(
+          'Quravel',
+          style: TextStyle(color: Colors.white,fontFamily: 'Open Sans',fontSize: 25),),
         actions: [
+
           IconButton(
             icon: Icon(Icons.logout),
             onPressed: (){
@@ -29,6 +32,7 @@ class _HomeState extends State<Home> {
             },
           )
         ],
+        backgroundColor: Colors. green
       ),
       body: currentIndex == 0 ? PostScreen() : Tourist_Attraction(),
       floatingActionButton: FloatingActionButton(
@@ -37,7 +41,8 @@ class _HomeState extends State<Home> {
              title: 'Ask and Share Experiences',
            )));
         },
-        child: Icon(Icons.add),
+        backgroundColor: Colors.white,
+        child: Icon(Icons.post_add,color: Colors.green),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(
@@ -48,11 +53,12 @@ class _HomeState extends State<Home> {
         child: BottomNavigationBar(
           items: [
             BottomNavigationBarItem(
-              icon: Icon(Icons.home),
+              icon: Icon(Icons.home, color: Colors.green),
+              
               label: ''
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.park_outlined),
+              icon: Icon(Icons.park_outlined,color: Colors.green),
               label: ''
             )
           ],

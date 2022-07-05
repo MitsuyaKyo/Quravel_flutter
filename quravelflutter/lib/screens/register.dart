@@ -47,59 +47,67 @@ class _RegisterState extends State<Register> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Register'),
-        centerTitle: true,
-      ),
-      body: Form(
-        key: formKey,
-        child: ListView(
-          padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 32),
-          children: [
-            TextFormField(
-              controller: nameController,
-              validator: (val) => val!.isEmpty ? 'Invalid name' : null,
-              decoration: kInputDecoration('Name')
-            ),
-            SizedBox(height: 20,),
-            TextFormField(
-              controller: emailController,
-              keyboardType: TextInputType.emailAddress,
-              validator: (val) => val!.isEmpty ? 'Invalid email address' : null,
-              decoration: kInputDecoration('Email')
-            ),
-            SizedBox(height: 20,),
-            TextFormField(
-              controller: passwordController,
-              obscureText: true,
-              validator: (val) => val!.length < 6 ? 'Required at least 6 chars' : null,
-              decoration: kInputDecoration('Password')
-            ),
-            SizedBox(height: 20,),
-            TextFormField(
-              controller: passwordConfirmController,
-              obscureText: true,
-              validator: (val) => val != passwordController.text ? 'Confirm password does not match' : null,
-              decoration: kInputDecoration('Confirm password')
-            ),
-            SizedBox(height: 20,),
-            loading ? 
-              Center(child: CircularProgressIndicator())
-            : kTextButton('Register', () {
-                if(formKey.currentState!.validate()){
-                  setState(() {
-                    loading = !loading;
-                    _registerUser();
-                  });
-                }
-              },
-            ),
-            SizedBox(height: 20,),
-            kLoginRegisterHint('Already have an account? ', 'Login', (){
-              Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context)=>Login()), (route) => false);
-            })
-          ],
+    return Container(
+      decoration: const BoxDecoration(image: DecorationImage(image: AssetImage('assets/login_register.png'), fit: BoxFit.cover)),
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        appBar: AppBar(
+          title: Text('Register'),
+          centerTitle: true,
+          backgroundColor: Colors. green
+        ),
+        
+        body: Form(
+          key: formKey,
+          child: ListView(
+            padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 32),
+            
+            children: [
+              TextFormField(
+                controller: nameController,
+                validator: (val) => val!.isEmpty ? 'Invalid name' : null,
+                decoration: kInputDecoration('Name')
+              ),
+              SizedBox(height: 20,),
+              TextFormField(
+                
+                controller: emailController,
+                keyboardType: TextInputType.emailAddress,
+                validator: (val) => val!.isEmpty ? 'Invalid email address' : null,
+                decoration: kInputDecoration('Email')
+              ),
+              SizedBox(height: 20,),
+              TextFormField(
+                controller: passwordController,
+                obscureText: true,
+                validator: (val) => val!.length < 6 ? 'Required at least 6 chars' : null,
+                decoration: kInputDecoration('Password')
+              ),
+              SizedBox(height: 20,),
+              TextFormField(
+                controller: passwordConfirmController,
+                obscureText: true,
+                validator: (val) => val != passwordController.text ? 'Confirm password does not match' : null,
+                decoration: kInputDecoration('Confirm password')
+              ),
+              SizedBox(height: 20,),
+              loading ? 
+                Center(child: CircularProgressIndicator())
+              : kTextButton('Register', () {
+                  if(formKey.currentState!.validate()){
+                    setState(() {
+                      loading = !loading;
+                      _registerUser();
+                    });
+                  }
+                },
+              ),
+              SizedBox(height: 20,),
+              kLoginRegisterHint('Already have an account? ', 'Login', (){
+                Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context)=>Login()), (route) => false);
+              })
+            ],
+          ),
         ),
       ),
     );

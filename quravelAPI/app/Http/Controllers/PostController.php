@@ -83,7 +83,6 @@ class PostController extends Controller
             'body' =>  $attrs['body']
         ]);
 
-        // for now skip for post image
 
         return response([
             'message' => 'Post updated.',

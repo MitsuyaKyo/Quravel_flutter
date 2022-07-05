@@ -97,6 +97,7 @@ class _PostFormState extends State<PostForm> {
     return Scaffold(
       appBar: AppBar(
         title: Text('${widget.title}'),
+        backgroundColor: Colors. green
       ),
       body:_loading ? Center(child: CircularProgressIndicator(),) :  ListView(
         children: [
